@@ -20,5 +20,12 @@ pipeline {
                 sh 'sudo docker run -d --name nginx -p 9999:80 nginx:${VERSION}'
             }
         }
+        stage('Step four - > Push docker hub') {
+            steps {
+                withDockerRegistry(credentialsId: '7339fbef-c30a-4797-b512-ea236e237b36', url: 'https://hub.docker.com/repository/docker/uladzimirzel/lab/general') {
+                    
+                }
+            }
+        }
     }
 }
