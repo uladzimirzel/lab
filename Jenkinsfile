@@ -10,10 +10,8 @@ pipeline {
 
         stage('Step two - > Validate Dockerfile') {
             steps {
-                dir ('docker') {
-                    sh 'sudo docker pull hadolint/hadolint'
-                    sh 'sudo docker run --rm -i hadolint/hadolint < Dockerfile'
-                }
+                sh 'sudo docker pull hadolint/hadolint'
+                 sh 'sudo docker run --rm -i hadolint/hadolint < Dockerfile'
             }
         }
         stage('Step three - > Build and Run container') {
