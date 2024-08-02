@@ -14,10 +14,19 @@ pipeline {
                  sh 'sudo docker run --rm -i hadolint/hadolint < Dockerfile'
             }
         }
-        stage('Step three - > Build and Run container') {
+        stage('Step three - > Build image') {
             steps {
                 sh 'sudo docker build . -t nginx:${VERSION}'
-                sh 'sudo docker run -d -p 9999:80 nginx:${VERSION}'
+                sh 'sudo docker run -d -p 9999:80 nginx:${VERSION}'          
+            }
+        }
+        stage('Step four - > Run container') {
+            steps {
+                sh 'sudo docker run -d -p 9999:80 nginx:${VERSION}'          
+            }
+        }
+        stage('Step five - > Run container') {
+            steps {
                 withCredentials([usernamePassword(credentialsId: '7339fbef-c30a-4797-b512-ea236e237b36', passwordVariable: 'PASSWORD', usernameVariable: 'LOGIN')]) {
                     sh 'sudo docker login --username ${LOGIN} --password ${PASSWORD}'
                     sh 'sudo docker tag nginx:${VERSION} uladzimirzel/lab:nginx-${VERSION}'
