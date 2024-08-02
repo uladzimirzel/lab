@@ -16,8 +16,7 @@ pipeline {
         }
         stage('Step three - > Build image') {
             steps {
-                sh 'sudo docker build . -t nginx:${VERSION}'
-                sh 'sudo docker run -d -p 9999:80 nginx:${VERSION}'          
+                sh 'sudo docker build . -t nginx:${VERSION}'          
             }
         }
         stage('Step four - > Run container') {
