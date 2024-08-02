@@ -18,11 +18,10 @@ pipeline {
             steps {
                 sh 'sudo docker build . -t nginx:${VERSION}'
                 sh 'sudo docker run -d -p 9999:80 nginx:${VERSION}'
-                sh 'sudo docker restart nginx'
                 withCredentials([usernamePassword(credentialsId: '7339fbef-c30a-4797-b512-ea236e237b36', passwordVariable: 'PASSWORD', usernameVariable: 'LOGIN')]) {
                     sh 'sudo docker login --username ${LOGIN} --password ${PASSWORD}'
-                    sh 'sudo docker tag nginx:${VERSION} uladzimirzel/lab:${VERSION}'
-                    sh 'sudo docker push uladzimirzel/lab:${VERSION}'
+                    sh 'sudo docker tag nginx:${VERSION} uladzimirzel/lab:nginx-${VERSION}'
+                    sh 'sudo docker push uladzimirzel/lab:nginx-${VERSION}'
                 }          
             }
         }
