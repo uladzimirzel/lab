@@ -17,7 +17,7 @@ pipeline {
         stage('Step three - > Build and Run container') {
             steps {
                 withCredentials([usernamePassword(credentialsId: '7339fbef-c30a-4797-b512-ea236e237b36', passwordVariable: 'PASSWORD', usernameVariable: 'LOGIN')]) {
-                    sh 'sudo docker login --username ${LOGIN} --password-stdin${PASSWORD}'
+                    sh 'sudo docker login --username ${LOGIN} --password ${PASSWORD}'
                 }
                 sh 'sudo docker build . -t nginx:${VERSION}'
                 sh 'sudo docker run -d --name nginx -p 9999:80 nginx:${VERSION}'
