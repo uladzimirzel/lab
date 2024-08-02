@@ -20,7 +20,7 @@ pipeline {
                 sh 'sudo docker run -d --name nginx -p 9999:80 nginx:${VERSION}'
                 withCredentials([usernamePassword(credentialsId: '7339fbef-c30a-4797-b512-ea236e237b36', passwordVariable: 'PASSWORD', usernameVariable: 'LOGIN')]) {
                     sh 'sudo docker login --username ${LOGIN} --password ${PASSWORD} docker.io'
-                    sh 'sudo docker tag nginx:${VERSION} nginx:${VERSION}'
+                    sh 'sudo docker tag nginx uladzimirzel/lab:nginx:${VERSION}'
                     sh 'sudo docker push uladzimirzel/lab:nginx:${VERSION}'
                 }          
             }
